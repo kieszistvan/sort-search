@@ -2,8 +2,9 @@ package sorting
 
 object Sort {
 	
-  def bubble(xs: List[Int]): List[Int] = {
-	if (xs.isEmpty) return xs
+  def emptyChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if(xs.isEmpty) List() else f(xs)
+  
+  def bubble(xs: List[Int]): List[Int] = emptyChecked(xs) { xs => 
 	
     def inner(ys: List[Int], i: Int, switched: Boolean): List[Int] = {
 		if (ys.size-1 == i) {
@@ -28,6 +29,8 @@ object Sort {
       case _:Throwable => throw new RuntimeException
     }
   }
+ 
+  
   
 }
 

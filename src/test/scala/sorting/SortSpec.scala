@@ -38,9 +38,10 @@ class SortSuite extends Specification {
 	    isSorted(unsorted) must equalTo(false)
 	  }
 	  "recognize sorted list with repeating ints" in {
-	    val sorted = List(1,1,3,9,9)
-	    isSorted(sorted) must equalTo(true)
+	    val sortedWithRepeating = List(1,1,3,9,9)
+	    isSorted(sortedWithRepeating) must equalTo(true)
 	  }
 	}
 	
+
 }
