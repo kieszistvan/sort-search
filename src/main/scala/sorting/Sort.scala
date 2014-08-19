@@ -2,9 +2,9 @@ package sorting
 
 object Sort {
 
-  def emptyChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if (xs.length <= 1) xs else f(xs)
+  def emptyOrSingleChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if (xs.length <= 1) xs else f(xs)
 
-  def bubble(xs: List[Int]): List[Int] = emptyChecked(xs) { xs =>
+  def bubble(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) { xs =>
 
     def inner(ys: List[Int], i: Int, switched: Boolean): List[Int] = {
       if (ys.size - 1 == i) {
@@ -30,7 +30,7 @@ object Sort {
     }
   }
 
-  def insertion(xs: List[Int]): List[Int] = emptyChecked(xs) {
+  def insertion(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
     xs =>
 
       def inner(sorted: List[Int], unsorted: List[Int]): List[Int] = {
@@ -51,7 +51,7 @@ object Sort {
   }
 
   // as in Programmin in Scala
-  def merge(xs: List[Int]): List[Int] = emptyChecked(xs) {
+  def merge(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
     xs =>
       def inner(ys: List[Int], zs: List[Int], acc: List[Int]): List[Int] = {
 
@@ -74,7 +74,7 @@ object Sort {
       }
   }
 
-  def quick(xs: List[Int]): List[Int] = emptyChecked(xs) {
+  def quick(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
     xs =>
 
       val pivot = xs(xs.length / 2)
