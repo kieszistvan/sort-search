@@ -19,7 +19,7 @@ object Sort {
   }
 
   def isSorted(xs: List[Int]): Boolean = {
-    if (xs.isEmpty) return true
+    if (xs.length <= 1) return true
 
     try {
       xs.fold(xs.head)((a, b) => if (a <= b) b else throw new SortingException)
