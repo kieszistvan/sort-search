@@ -6,8 +6,12 @@ class SortSuite extends Specification {
   import Sort._
 
   "Sort#bubble" should {
-    "sort empty list without failure" in {
-      val empty = List[Int]()
+    "return empty list when sorting empty list" in {
+      val empty = List()
+      bubble(empty) must equalTo(List())
+    }
+    "return list with one element when sorting list with one element" in {
+      val empty = List()
       bubble(empty) must equalTo(List())
     }
     "sort unsorted list" in {
@@ -44,7 +48,11 @@ class SortSuite extends Specification {
   }
 
   "Sort#insertion" should {
-    "sort empty list without failure" in {
+    "return empty list when sorting empty list" in {
+      val empty = List()
+      insertion(empty) must equalTo(List())
+    }
+    "return list with one element when sorting list with one element" in {
       val empty = List()
       insertion(empty) must equalTo(List())
     }
@@ -59,7 +67,11 @@ class SortSuite extends Specification {
   }
 
   "Sort#merge" should {
-    "sort empty list without failure" in {
+    "return empty list when sorting empty list" in {
+      val empty = List()
+      merge(empty) must equalTo(List())
+    }
+    "return list with one element when sorting list with one element" in {
       val empty = List()
       merge(empty) must equalTo(List())
     }
@@ -73,4 +85,22 @@ class SortSuite extends Specification {
     }
   }
 
+  "Sort#quick" should {
+    "return empty list when sorting empty list" in {
+      val empty = List()
+      quick(empty) must equalTo(List())
+    }
+    "return list with one element when sorting list with one element" in {
+      val empty = List()
+      quick(empty) must equalTo(List())
+    }
+    "sort unsorted list" in {
+      val unsorted = List(4, 1, 9, 0)
+      quick(unsorted) must equalTo(List(0, 1, 4, 9))
+    }
+    "sort list with repeating integers" in {
+      val unsortedWithRepeatingInts = List(0, 1, 0, 1, 0, 1, 2, 2, -1)
+      quick(unsortedWithRepeatingInts) must equalTo(List(-1, 0, 0, 0, 1, 1, 1, 2, 2))
+    }
+  }
 }

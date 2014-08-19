@@ -2,7 +2,7 @@ package sorting
 
 object Sort {
 
-  def emptyChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if (xs.isEmpty) List() else f(xs)
+  def emptyChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if (xs.length <= 1) xs else f(xs)
 
   def bubble(xs: List[Int]): List[Int] = emptyChecked(xs) { xs =>
 
@@ -72,6 +72,21 @@ object Sort {
         val (ys, zs) = xs splitAt n
         inner(merge(ys), merge(zs), Nil).reverse // split until there are only pairs (x,y or x,Nil)
       }
+  }
+
+  def quick(xs: List[Int]): List[Int] = emptyChecked(xs) {
+    xs =>
+
+      val pivot = xs(xs.length / 2)
+
+      val splitted = xs.foldLeft((List[Int](), List[Int](), List[Int]())) {
+        (x, i) =>
+          if (i < pivot) (((i :: x._1), x._2, x._3))
+          else if (i == pivot) ((x._1, (i :: x._2), x._3))
+          else ((x._1, x._2, (i :: x._3)))
+      }
+
+      quick(splitted._1) ::: splitted._2 ::: quick(splitted._3)
   }
 
 }
