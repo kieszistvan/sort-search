@@ -50,6 +50,30 @@ object Sort {
       inner(Nil, xs)
   }
 
+  // as in Programmin in Scala
+  def merge(xs: List[Int]): List[Int] = emptyChecked(xs) {
+    xs =>
+      def inner(ys: List[Int], zs: List[Int], acc: List[Int]): List[Int] = {
+
+        (ys, zs) match {
+          // these cases cover the one-element situation which is higher than the one an iteration earlier
+          case (Nil, _) => zs.reverse ::: acc
+          case (_, Nil) => ys.reverse ::: acc
+          case (yh :: yt, zh :: zt) =>
+            if (yh < zh) inner(yt, zs, yh :: acc)
+            else inner(ys, zt, zh :: acc)
+        }
+
+      }
+
+      val n = xs.length / 2
+      if (n == 0) xs
+      else {
+        val (ys, zs) = xs splitAt n
+        inner(merge(ys), merge(zs), Nil).reverse // split until there are only pairs (x,y or x,Nil)
+      }
+  }
+
 }
 
 class SortingException extends RuntimeException

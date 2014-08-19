@@ -56,7 +56,21 @@ class SortSuite extends Specification {
       val unsortedWithRepeatingInts = List(0, 1, 0, 1, 0, 1, 2, 2, -1)
       insertion(unsortedWithRepeatingInts) must equalTo(List(-1, 0, 0, 0, 1, 1, 1, 2, 2))
     }
+  }
 
+  "Sort#merge" should {
+    "sort empty list without failure" in {
+      val empty = List()
+      merge(empty) must equalTo(List())
+    }
+    "sort unsorted list" in {
+      val unsorted = List(4, 1, 9, 0)
+      merge(unsorted) must equalTo(List(0, 1, 4, 9))
+    }
+    "sort list with repeating integers" in {
+      val unsortedWithRepeatingInts = List(0, 1, 0, 1, 0, 1, 2, 2, -1)
+      merge(unsortedWithRepeatingInts) must equalTo(List(-1, 0, 0, 0, 1, 1, 1, 2, 2))
+    }
   }
 
 }
