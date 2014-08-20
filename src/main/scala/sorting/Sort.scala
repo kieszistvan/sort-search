@@ -1,12 +1,14 @@
 package sorting
 
+import scala.math.Ordered
+
 object Sort {
 
-  def emptyOrSingleChecked(xs: List[Int])(f: List[Int] => List[Int]): List[Int] = if (xs.length <= 1) xs else f(xs)
+  def emptyOrSingleChecked[A <% Ordered[A]](xs: List[A])(f: List[A] => List[A]): List[A] = if (xs.length <= 1) xs else f(xs)
 
-  def bubble(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) { xs =>
+  def bubble[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) { xs =>
 
-    def inner(ys: List[Int], i: Int, switched: Boolean): List[Int] = {
+    def inner(ys: List[A], i: Int, switched: Boolean): List[A] = {
       if (ys.size - 1 == i) {
         if (switched) inner(ys, 0, false) else ys
       } else if (ys(i) > ys(i + 1)) {
@@ -18,7 +20,7 @@ object Sort {
     inner(xs, 0, false)
   }
 
-  def isSorted(xs: List[Int]): Boolean = {
+  def isSorted[A <% Ordered[A]](xs: List[A]): Boolean = {
     if (xs.length <= 1) return true
 
     try {
@@ -30,16 +32,16 @@ object Sort {
     }
   }
 
-  def insertion(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
+  def insertion[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) {
     xs =>
 
-      def inner(sorted: List[Int], unsorted: List[Int]): List[Int] = {
+      def inner(sorted: List[A], unsorted: List[A]): List[A] = {
         if (unsorted.isEmpty) return sorted
         inner(put(unsorted.head, sorted), unsorted.tail)
       }
 
       // put the element into a sorted list
-      def put(elem: Int, ys: List[Int]): List[Int] = {
+      def put(elem: A, ys: List[A]): List[A] = {
         ys match {
           case h :: t =>
             if (elem > h) h :: put(elem, t)
@@ -51,9 +53,9 @@ object Sort {
   }
 
   // as in Programmin in Scala
-  def merge(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
+  def merge[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) {
     xs =>
-      def inner(ys: List[Int], zs: List[Int], acc: List[Int]): List[Int] = {
+      def inner(ys: List[A], zs: List[A], acc: List[A]): List[A] = {
 
         (ys, zs) match {
           // these cases cover the one-element situation which is higher than the one an iteration earlier
@@ -74,12 +76,12 @@ object Sort {
       }
   }
 
-  def quick(xs: List[Int]): List[Int] = emptyOrSingleChecked(xs) {
+  def quick[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) {
     xs =>
 
       val pivot = xs(xs.length / 2)
 
-      val splitted = xs.foldLeft((List[Int](), List[Int](), List[Int]())) {
+      val splitted = xs.foldLeft((List[A](), List[A](), List[A]())) {
         (x, i) =>
           if (i < pivot) (((i :: x._1), x._2, x._3))
           else if (i == pivot) ((x._1, (i :: x._2), x._3))
