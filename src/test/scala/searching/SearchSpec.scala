@@ -5,7 +5,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-object SearchSpec extends Specification {
+class SearchSpec extends Specification {
   import Search._
 
   "Search#binary" should {
