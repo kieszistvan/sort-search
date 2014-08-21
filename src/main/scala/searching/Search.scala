@@ -13,7 +13,6 @@ object Search {
         if (l > u) return -1
 
         val half = l + (u - l + 1) / 2
-        println("half " + half)
         ys match {
           case yh :: yt if (ys(half) == t) => half
           case yh :: yt if (ys(half) < t) => inner(ys, half + 1, u)
