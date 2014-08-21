@@ -1,8 +1,11 @@
 package sorting
 
 import org.specs2.mutable._
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
-class SortSuite extends Specification {
+@RunWith(classOf[JUnitRunner])
+class SortSpec extends Specification {
   import Sort._
 
   "Sort#bubble" should {
