@@ -6,6 +6,10 @@ object Sort {
 
   def emptyOrSingleChecked[A <% Ordered[A]](xs: List[A])(f: List[A] => List[A]): List[A] = if (xs.length <= 1) xs else f(xs)
 
+  /**
+   * Inspired by: https://github.com/vkostyukov/scalacaster/blob/master/src/sort/BubbleSort.scala
+   * This version is not exhaustive
+   */
   def bubble[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) { xs =>
 
     def inner(ys: List[A], heads: List[A], switched: Boolean): List[A] = {
