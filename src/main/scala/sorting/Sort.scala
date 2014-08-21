@@ -8,16 +8,15 @@ object Sort {
 
   def bubble[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) { xs =>
 
-    def inner(ys: List[A], i: Int, switched: Boolean): List[A] = {
-      if (ys.size - 1 == i) {
-        if (switched) inner(ys, 0, false) else ys
-      } else if (ys(i) > ys(i + 1)) {
-        val zs = ys.take(i) ::: List(ys(i + 1)) ::: List(ys(i)) ::: ys.drop(i + 2)
-        inner(zs, i + 1, true)
-      } else inner(ys, i + 1, switched)
+    def inner(ys: List[A], heads: List[A], switched: Boolean): List[A] = {
+      ys match {
+        case yh1 :: yh2 :: yt if (yh1 > yh2) => inner(yh1 :: yt, yh2 :: heads, true)
+        case yh1 :: yh2 :: yt if (yh1 <= yh2) => inner(yh2 :: yt, yh1 :: heads, switched)
+        case yh :: Nil => if (switched) bubble((yh :: heads).reverse) else (yh :: heads).reverse
+      }
     }
 
-    inner(xs, 0, false)
+    inner(xs, Nil, false)
   }
 
   def isSorted[A <% Ordered[A]](xs: List[A]): Boolean = {
@@ -25,7 +24,7 @@ object Sort {
 
     try {
       xs.fold(xs.head)((a, b) => if (a <= b) b else throw new SortingException)
-      true
+      return true
     } catch {
       case e: SortingException => return false
       case _: Throwable => throw new RuntimeException
@@ -35,20 +34,22 @@ object Sort {
   def insertion[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) {
     xs =>
 
-      def inner(sorted: List[A], unsorted: List[A]): List[A] = {
-        if (unsorted.isEmpty) return sorted
-        inner(put(unsorted.head, sorted), unsorted.tail)
+      def inner(ys: List[A], unsorted: List[A]): List[A] = {
+        if (unsorted.isEmpty) return ys
+        val sorted = put(unsorted.head, ys)
+        inner(sorted, unsorted.tail)
       }
 
       // put the element into a sorted list
-      def put(elem: A, ys: List[A]): List[A] = {
-        ys match {
-          case h :: t =>
-            if (elem > h) h :: put(elem, t)
-            else elem :: ys
-          case Nil => ys ::: List(elem)
+      def put(elem: A, zs: List[A]): List[A] = {
+        zs match {
+          case zh :: zt =>
+            if (elem > zh) zh :: put(elem, zt)
+            else elem :: zs
+          case Nil => zs ::: List(elem)
         }
       }
+
       inner(Nil, xs)
   }
 
