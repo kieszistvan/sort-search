@@ -57,7 +57,7 @@ object Sort {
       inner(Nil, xs)
   }
 
-  // as in Programmin in Scala
+  // as in Programming in Scala
   def merge[A <% Ordered[A]](xs: List[A]): List[A] = emptyOrSingleChecked(xs) {
     xs =>
       def inner(ys: List[A], zs: List[A], acc: List[A]): List[A] = {
