@@ -22,4 +22,24 @@ object Search {
       inner(xs, 0, xs.length - 1)
   }
 
+  /**
+   * Depth-First search for graphs (adjacency list)
+   */
+  def dfs[S](graph: List[(S, List[Int])]): List[S] = {
+
+    def walk(current: (S, List[Int]), acc: List[S]): List[S] = {
+      if (acc.contains(current._1)) return acc
+      nextVertex(current._2, current._1 :: acc)
+    }
+
+    def nextVertex(adj: List[Int], acc: List[S]): List[S] = {
+      adj match {
+        case h :: t => nextVertex(t, walk(graph(h), acc))
+        case Nil => acc
+      }
+    }
+
+    walk(graph.head, Nil)
+  }
+
 }
