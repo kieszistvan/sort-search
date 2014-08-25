@@ -39,7 +39,6 @@ object Search {
       }
     }
 
-    walk(graph.head, Nil)
+    walk(graph.head, Nil).reverse
   }
-
 }

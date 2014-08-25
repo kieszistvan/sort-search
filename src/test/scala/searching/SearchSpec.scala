@@ -20,7 +20,7 @@ class SearchSpec extends Specification {
   }
 
   "Search#dfs" should {
-    "return the dfs traversal list reversed" in {
+    "return the dfs traversal list" in {
       val g: List[(Symbol, List[Int])] =
         List(
           'A -> List(1, 5, 6),
@@ -32,7 +32,7 @@ class SearchSpec extends Specification {
           'G -> List(0, 4),
           'H -> List(2))
 
-      dfs(g).reverse must equalTo(List('A, 'B, 'E, 'G, 'F, 'C, 'H, 'D))
+      dfs(g) must equalTo(List('A, 'B, 'E, 'G, 'F, 'C, 'H, 'D))
     }
   }
 
