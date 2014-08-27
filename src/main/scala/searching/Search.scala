@@ -23,7 +23,8 @@ object Search {
   }
 
   /**
-   * Depth-First search for graphs (adjacency list)
+   * Depth-First search for graphs (adjacency list). Starting vertex is the first item
+   * in the list.
    */
   def dfs[S](graph: List[(S, List[Int])]): List[S] = {
 
